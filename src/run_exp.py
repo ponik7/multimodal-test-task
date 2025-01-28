@@ -1,7 +1,7 @@
 import fire
-from src.utils.utils import load_model, read_json
-from src.utils.vision_utils import create_html
-from src.config import IMG_TOKEN_ID
+from utils.utils import load_model, read_json
+from utils.vision_utils import create_html
+from config import IMG_TOKEN_ID
 import torch
 from PIL import Image
 

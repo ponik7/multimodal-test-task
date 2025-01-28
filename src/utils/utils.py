@@ -8,7 +8,7 @@ from typing import Dict
 import json
 
 
-def load_model(model_id: str, device: str):    
+def load_model(model_id: str):    
     # processor = AutoProcessor.from_pretrained(model_id)
     # model = AutoModelForImageTextToText.from_pretrained(model_id).to(device)
     # tokenizer = AutoTokenizer.from_pretrained(model_id)

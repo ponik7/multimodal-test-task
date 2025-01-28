@@ -19,7 +19,7 @@ pip install -r requirements.txt
 
 ### Запуск скрипта
 ```bash
-python src/run_exp.py --model_id <MODEL_ID> --im_path data/images/1.jpg
+python src/run_exp.py --model_id llava-hf/llava-1.5-7b-hf --im_path data/images/1.jpg
 ```
 
 - `<MODEL_ID>`: Идентификатор модели Hugging Face (например, `your-org/your-model`).

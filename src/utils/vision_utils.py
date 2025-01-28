@@ -3,7 +3,7 @@ from pathlib import Path
 import base64
 from io import BytesIO
 from PIL import Image
-from src.config import IMAGE_SIZE, PATCH_SIZE
+from config import IMAGE_SIZE, PATCH_SIZE
 
 
 
