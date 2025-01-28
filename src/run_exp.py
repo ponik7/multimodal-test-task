@@ -4,6 +4,17 @@ from utils.vision_utils import create_html
 from config import IMG_TOKEN_ID
 import torch
 from PIL import Image
+import logging
+
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+    handlers=[
+        logging.StreamHandler(),
+    ]
+)
+
+logger = logging.getLogger()
 
 
 def run(model_id: str, im_path: str):
@@ -28,6 +39,7 @@ def run(model_id: str, im_path: str):
     prompt = processor.apply_chat_template(conversation, add_generation_prompt=True)
     inputs = processor(images=raw_image, text=prompt, return_tensors='pt').to(model.device)
 
+    logger.info("performing forward pass...")
     with torch.no_grad():
         outputs = model.forward(
             **inputs.to(model.device),
@@ -51,7 +63,8 @@ def run(model_id: str, im_path: str):
 
     norm = model.language_model.model.norm
     lm_head = model.language_model.lm_head
-    
+
+    logger.info("applying logit lens...")
     all_top_tokens = []
     for layer in range(num_layers):
         layer_hidden_states = hidden_states[layer]
@@ -69,7 +82,9 @@ def run(model_id: str, im_path: str):
         
         all_top_tokens.append(layer_top_tokens)
 
+    logger.info("building HTML...")
     create_html(raw_image, im_name, model_id, all_top_tokens, token_labels, prompt)
+    logger.info("all done successfully!")
     
 
 

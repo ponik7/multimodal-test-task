@@ -1,21 +1,17 @@
 import matplotlib.pyplot as plt
 
 import torch
-from transformers import AutoProcessor, AutoModelForImageTextToText, AutoTokenizer, AutoModelForCausalLM, BitsAndBytesConfig
+from transformers import AutoProcessor, AutoModelForImageTextToText, AutoTokenizer, AutoModelForCausalLM
 from transformers.generation.logits_process import TopKLogitsWarper, LogitsProcessorList
 
 from typing import Dict
 import json
 
 
-def load_model(model_id: str):    
-    # processor = AutoProcessor.from_pretrained(model_id)
-    # model = AutoModelForImageTextToText.from_pretrained(model_id).to(device)
-    # tokenizer = AutoTokenizer.from_pretrained(model_id)
-    bnb_config = BitsAndBytesConfig(load_in_8bit=True)
-
+def load_model(model_id: str):   
+    device = "cuda" if torch.cuda.is_available() else "cpu"
     processor = AutoProcessor.from_pretrained(model_id)
-    model = AutoModelForImageTextToText.from_pretrained(model_id, quantization_config=bnb_config)
+    model = AutoModelForImageTextToText.from_pretrained(model_id).to(device)
     tokenizer = AutoTokenizer.from_pretrained(model_id)
     return model, processor, tokenizer
 
