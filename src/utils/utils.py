@@ -1,6 +1,4 @@
 import matplotlib.pyplot as plt
-import requests
-
 
 import torch
 from transformers import AutoProcessor, AutoModelForImageTextToText, AutoTokenizer, AutoModelForCausalLM, BitsAndBytesConfig
